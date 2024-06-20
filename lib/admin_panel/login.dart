@@ -89,14 +89,32 @@ signIn() async{
                         prefixIcon: Icon(Icons.lock),
                       ),
                     ),
-                    SizedBox(height: 20),
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => Register()),
+                            );
+                          },
+                          child: Text(
+                            'Forgot password',
+                            style: TextStyle(
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       // Center the button
                       children: [
                         ElevatedButton( onPressed: (()=>signIn()),
-
-
                           child: Text('Login'),
                           style: ElevatedButton.styleFrom(
                             padding: EdgeInsets.symmetric(
