@@ -1,6 +1,5 @@
 import 'package:firebase_login/Wrapper.dart';
 import 'package:firebase_login/admin_panel/login.dart';
-import 'package:firebase_login/user_panel/homepage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -15,16 +14,28 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-  final TextEditingController usernameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController = TextEditingController();
-
 
   register() async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailController.text, password: passwordController.text);
-    Get.offAll(Wrapper());
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+      Get.offAll(Wrapper());
+    } on FirebaseAuthException catch (e) {
+      // Handle error, for example by showing a Snackbar or Dialog
+      if (e.code == 'weak-password') {
+        print('The password provided is too weak.');
+      } else if (e.code == 'email-already-in-use') {
+        print('The account already exists for that email.');
+      } else {
+        print(e.message);
+      }
+    } catch (e) {
+      print(e.toString());
+    }
   }
 
   @override
@@ -34,13 +45,13 @@ class _RegisterState extends State<Register> {
       body: Stack(
         children: [
           Container(
-            padding: EdgeInsets.only(left: 130, top: 130),
-            child: Column(
+            padding: const EdgeInsets.only(left: 90, top: 130),
+            child: const Column(
               mainAxisSize: MainAxisSize.min,
-
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text('Sign up',
+                Text(
+                  'Register Now',
                   style: TextStyle(
                     fontSize: 40,
                     color: Colors.black,
@@ -60,18 +71,13 @@ class _RegisterState extends State<Register> {
           SingleChildScrollView(
             child: Container(
               padding: EdgeInsets.only(
-                top: MediaQuery
-                    .of(context)
-                    .size
-                    .height * 0.35,
+                top: MediaQuery.of(context).size.height * 0.35,
                 right: 35,
                 left: 35,
               ),
               child: Form(
                 child: Column(
                   children: [
-
-
                     TextFormField(
                       controller: emailController,
                       decoration: InputDecoration(
@@ -101,26 +107,11 @@ class _RegisterState extends State<Register> {
                       ),
                     ),
                     SizedBox(height: 20),
-                    // TextFormField(
-                    //   controller: confirmPasswordController,
-                    //   obscureText: true,
-                    //   decoration: InputDecoration(
-                    //     fillColor: Colors.deepPurple[50],
-                    //     filled: true,
-                    //     hintText: 'Confirm Password',
-                    //     border: OutlineInputBorder(
-                    //       borderSide: BorderSide.none,
-                    //       borderRadius: BorderRadius.circular(20),
-                    //     ),
-                    //     prefixIcon: Icon(Icons.lock),
-                    //   ),
-                    // ),
-                    // SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        ElevatedButton(onPressed: (() => const Homepage()),
-                          child: Text('Register'),
+                        ElevatedButton(
+                          onPressed: register,
                           style: ElevatedButton.styleFrom(
                             padding: EdgeInsets.symmetric(
                                 horizontal: 100, vertical: 15),
@@ -128,6 +119,7 @@ class _RegisterState extends State<Register> {
                               borderRadius: BorderRadius.circular(20),
                             ),
                           ),
+                          child: Text('Register'),
                         ),
                       ],
                     ),

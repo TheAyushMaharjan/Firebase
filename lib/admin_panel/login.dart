@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_login/admin_panel/forgot_password.dart';
 import 'package:firebase_login/admin_panel/register.dart';
 import 'package:firebase_login/user_panel/homepage.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,7 @@ signIn() async{
       body: Stack(
         children: [
           Container(
-            padding: EdgeInsets.only(left: 75, top: 130),
+            padding: EdgeInsets.only(left: 75, top: 100),
             child: Column(
 
               crossAxisAlignment: CrossAxisAlignment.center, children: [
@@ -97,7 +98,7 @@ signIn() async{
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => Register()),
+                              MaterialPageRoute(builder: (context) => ForgotPassword()),
                             );
                           },
                           child: Text(
