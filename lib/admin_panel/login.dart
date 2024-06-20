@@ -22,7 +22,7 @@ class _LoginState extends State<Login> {
       // Navigate to homepage or display success message
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => Homepage()),
+        MaterialPageRoute(builder: (context) => const Homepage()),
       );
     } on FirebaseAuthException catch (e) {
       // Display error message
@@ -42,7 +42,7 @@ class _LoginState extends State<Login> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
+              const Text(
                 'Welcome Back',
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -51,8 +51,8 @@ class _LoginState extends State<Login> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 10),
-              Text(
+              const SizedBox(height: 10),
+              const Text(
                 'Enter your credentials to login',
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -60,7 +60,7 @@ class _LoginState extends State<Login> {
                   color: Colors.black54,
                 ),
               ),
-              SizedBox(height: 40),
+              const SizedBox(height: 40),
               TextFormField(
                 controller: emailController,
                 decoration: InputDecoration(
@@ -71,10 +71,10 @@ class _LoginState extends State<Login> {
                     borderSide: BorderSide.none,
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  prefixIcon: Icon(Icons.person),
+                  prefixIcon: const Icon(Icons.person),
                 ),
               ),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
               TextFormField(
                 controller: passwordController,
                 obscureText: true,
@@ -86,10 +86,10 @@ class _LoginState extends State<Login> {
                     borderSide: BorderSide.none,
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  prefixIcon: Icon(Icons.lock),
+                  prefixIcon: const Icon(Icons.lock),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(
@@ -97,10 +97,10 @@ class _LoginState extends State<Login> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => ForgotPassword()),
+                          builder: (context) => const ForgotPassword()),
                     );
                   },
-                  child: Text(
+                  child: const Text(
                     'Forgot password?',
                     style: TextStyle(
                       decoration: TextDecoration.underline,
@@ -108,31 +108,31 @@ class _LoginState extends State<Login> {
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: signIn,
                 style: ElevatedButton.styleFrom(
                   padding:
-                  EdgeInsets.symmetric(horizontal: 100, vertical: 15),
+                  const EdgeInsets.symmetric(horizontal: 100, vertical: 15),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),
                 ),
-                child: Text('Login'),
+                child: const Text('Login'),
               ),
-              SizedBox(height: 100),
+              const SizedBox(height: 100),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Don't have an account?"),
+                  const Text("Don't have an account?"),
                   TextButton(
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Register()),
+                        MaterialPageRoute(builder: (context) => const Register()),
                       );
                     },
-                    child: Text(
+                    child: const Text(
                       'Sign Up',
                       style: TextStyle(
                         decoration: TextDecoration.underline,

@@ -34,11 +34,11 @@ class _ForgotPasswordState extends State<ForgotPassword> {
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 35),
+            padding: const EdgeInsets.symmetric(horizontal: 35),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(
+                const Text(
                   'Get your password',
                   textAlign: TextAlign.center,
                   style: TextStyle(
@@ -47,8 +47,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 20),
-                Text(
+                const SizedBox(height: 20),
+                const Text(
                   'Enter your email address to receive a password reset link.',
                   textAlign: TextAlign.center,
                   style: TextStyle(
@@ -56,7 +56,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     color: Colors.black54,
                   ),
                 ),
-                SizedBox(height: 40),
+                const SizedBox(height: 40),
                 TextFormField(
                   controller: emailController,
                   decoration: InputDecoration(
@@ -67,10 +67,10 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       borderSide: BorderSide.none,
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    prefixIcon: Icon(Icons.email),
+                    prefixIcon: const Icon(Icons.email),
                   ),
                 ),
-                SizedBox(height: 30),
+                const SizedBox(height: 30),
                 ElevatedButton(
                   onPressed: forgot,
                   style: ElevatedButton.styleFrom(
@@ -80,7 +80,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
-                  child: Text('Send'),
+                  child: const Text('Send'),
                 ),
               ],
             ),
