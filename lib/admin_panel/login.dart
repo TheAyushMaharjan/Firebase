@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_login/admin_panel/register.dart';
 import 'package:firebase_login/user_panel/homepage.dart';
 import 'package:flutter/material.dart';
 
@@ -114,7 +115,7 @@ signIn() async{
                         Text("Don't have an account?"),
                         TextButton(
                           onPressed: () {
-                            Navigator.pushNamed(context, 'register');
+                              Register();
                           },
                           child: Text(
                             'Sign Up',
