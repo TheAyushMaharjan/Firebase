@@ -65,7 +65,7 @@ signIn() async{
                         fillColor: Colors.deepPurple[50],
                         filled: true,
                         // Enable fill color
-                        hintText: 'Username or Email',
+                        hintText: 'Enter Your Email',
                         border: OutlineInputBorder(
                           borderSide: BorderSide.none,
                           borderRadius: BorderRadius.circular(20),
@@ -115,7 +115,10 @@ signIn() async{
                         Text("Don't have an account?"),
                         TextButton(
                           onPressed: () {
-                              Register();
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => Register()),
+                            );
                           },
                           child: Text(
                             'Sign Up',

@@ -1,4 +1,5 @@
 import 'package:firebase_login/Wrapper.dart';
+import 'package:firebase_login/admin_panel/login.dart';
 import 'package:firebase_login/user_panel/homepage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -69,20 +70,7 @@ class _RegisterState extends State<Register> {
               child: Form(
                 child: Column(
                   children: [
-                    TextFormField(
-                      controller: usernameController,
-                      decoration: InputDecoration(
-                        fillColor: Colors.deepPurple[50],
-                        filled: true,
-                        hintText: 'Username',
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        prefixIcon: Icon(Icons.person),
-                      ),
-                    ),
-                    SizedBox(height: 20),
+
 
                     TextFormField(
                       controller: emailController,
@@ -113,21 +101,21 @@ class _RegisterState extends State<Register> {
                       ),
                     ),
                     SizedBox(height: 20),
-                    TextFormField(
-                      controller: confirmPasswordController,
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        fillColor: Colors.deepPurple[50],
-                        filled: true,
-                        hintText: 'Confirm Password',
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        prefixIcon: Icon(Icons.lock),
-                      ),
-                    ),
-                    SizedBox(height: 20),
+                    // TextFormField(
+                    //   controller: confirmPasswordController,
+                    //   obscureText: true,
+                    //   decoration: InputDecoration(
+                    //     fillColor: Colors.deepPurple[50],
+                    //     filled: true,
+                    //     hintText: 'Confirm Password',
+                    //     border: OutlineInputBorder(
+                    //       borderSide: BorderSide.none,
+                    //       borderRadius: BorderRadius.circular(20),
+                    //     ),
+                    //     prefixIcon: Icon(Icons.lock),
+                    //   ),
+                    // ),
+                    // SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -150,7 +138,10 @@ class _RegisterState extends State<Register> {
                         Text("Already have an account?"),
                         TextButton(
                           onPressed: () {
-                            Navigator.pushNamed(context, 'login');
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => Login()),
+                            );
                           },
                           child: Text(
                             'Sign in',
