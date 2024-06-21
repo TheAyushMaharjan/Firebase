@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_login/admin_panel/login.dart'; // Adjust import as per your project structure
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -9,10 +10,15 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
-  final user = FirebaseAuth.instance.currentUser;
+  User? user = FirebaseAuth.instance.currentUser; // Initialize user in State
 
-  void signOut() async {
-    await FirebaseAuth.instance.signOut();
+  void signOutAndNavigateToLogin() async {
+    try {
+      await FirebaseAuth.instance.signOut();
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const Login()));
+    } catch (e) {
+      print("Sign out error: $e");
+    }
   }
 
   @override
@@ -25,7 +31,7 @@ class _HomepageState extends State<Homepage> {
         child: Text(user?.email ?? 'No User'),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: (()=>signOut()),
+        onPressed: () => signOutAndNavigateToLogin(), // Call signOutAndNavigateToLogin on press
         child: const Icon(Icons.logout),
       ),
     );

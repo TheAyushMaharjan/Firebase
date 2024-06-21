@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:firebase_login/Wrapper.dart';
 import 'package:firebase_login/admin_panel/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -24,7 +26,6 @@ class _RegisterState extends State<Register> {
       );
       Get.offAll(Wrapper());
     } on FirebaseAuthException catch (e) {
-      // Handle error, for example by showing a Snackbar or Dialog
       String message = '';
       if (e.code == 'weak-password') {
         message = 'The password provided is too weak.';
@@ -33,104 +34,133 @@ class _RegisterState extends State<Register> {
       } else {
         message = e.message ?? 'An error occurred';
       }
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(message)));
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.toString())));
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.indigo[50],
-      body: Center(
-        child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 35),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                'Register Now',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 40,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: ImageFiltered(
+              imageFilter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+              child: Image.asset(
+                'assets/images/b1.jpg',
+                fit: BoxFit.cover,
               ),
-              SizedBox(height: 10),
-              Text(
-                'Create Your Account',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.black54,
-                ),
-              ),
-              SizedBox(height: 40),
-              TextFormField(
-                controller: emailController,
-                decoration: InputDecoration(
-                  fillColor: Colors.deepPurple[50],
-                  filled: true,
-                  hintText: 'Email',
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  prefixIcon: Icon(Icons.email),
-                ),
-              ),
-              SizedBox(height: 20),
-              TextFormField(
-                controller: passwordController,
-                obscureText: true,
-                decoration: InputDecoration(
-                  fillColor: Colors.deepPurple[50],
-                  filled: true,
-                  hintText: 'Password',
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  prefixIcon: Icon(Icons.lock),
-                ),
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: register,
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(horizontal: 100, vertical: 15),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                ),
-                child: Text('Register'),
-              ),
-              SizedBox(height: 40),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+            ),
+          ),
+          Center(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 35),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text("Already have an account?"),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Login()),
-                      );
-                    },
-                    child: Text(
-                      'Sign in',
-                      style: TextStyle(
-                        decoration: TextDecoration.underline,
+                  const Text(
+                    'Register Now',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 40,
+                        fontFamily:'Clash-light',
+                        fontWeight: FontWeight.bold,
+
+                        color: Color(0xFFFAF9F6),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  const Text(
+                    'Create Your Account',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 16,
+                        fontFamily:'Clash-light',
+
+                        color: Color(0xFFFAF9F6),
+                    ),
+                  ),
+                  const SizedBox(height: 40),
+                  TextFormField(
+                    controller: emailController,
+                    decoration: InputDecoration(
+                      fillColor: Colors.deepPurple[50],
+                      filled: true,
+                      hintText: 'Email',
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      prefixIcon: const Icon(Icons.email),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  TextFormField(
+                    controller: passwordController,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      fillColor: Colors.deepPurple[50],
+                      filled: true,
+                      hintText: 'Password',
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      prefixIcon: const Icon(Icons.lock),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: register,
+                    style: ElevatedButton.styleFrom(
+                      padding:
+                          const EdgeInsets.symmetric(horizontal: 100, vertical: 15),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
                       ),
                     ),
+                    child: const Text('Register'),
+                  ),
+                  const SizedBox(height: 40),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text("Already have an account?",
+                        style: TextStyle(
+                          decoration: TextDecoration.underline,
+                          fontFamily:'Clash-light',
+
+                          color: Color(0xFFFAF9F6),
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const Login()),
+                          );
+                        },
+                        child: const Text(
+                          'Sign in',
+                          style: TextStyle(
+                            decoration: TextDecoration.underline,
+                              fontFamily:'Clash-light',
+
+                              color: Color(0xFFFAF9F6),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
