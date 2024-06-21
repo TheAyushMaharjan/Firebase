@@ -1,7 +1,12 @@
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:firebase_login/api/api.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_login/admin_panel/login.dart'; // Adjust import as per your project structure
+import 'package:firebase_login/admin_panel/login.dart';
+import '../models/movie.dart';
+import '../widgets/Catagory.dart';
+import '../widgets/MostWatched.dart';
+import '../widgets/TopRated.dart';
+import '../widgets/Upcoming.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -11,6 +16,18 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
+  late Future<List<Movie>> mostwatched;
+  late Future<List<Movie>> toprated;
+  late Future<List<Movie>> upcoming;
+
+  @override
+  void initState() {
+    super.initState();
+    mostwatched = Api().getMostWatched(); //
+    toprated = Api().getTopRated();
+    upcoming = Api().getUpcomming();
+  }
+
   User? user = FirebaseAuth.instance.currentUser; // Initialize user in State
 
   void signOutAndNavigateToLogin() async {
@@ -38,7 +55,7 @@ class _HomepageState extends State<Homepage> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       'Welcome,',
                       style: TextStyle(
                         fontSize: 24,
@@ -49,7 +66,7 @@ class _HomepageState extends State<Homepage> {
                     ),
                     Text(
                       user?.email ?? 'No User',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 12,
                         fontFamily: 'Roboto',
                         color: Colors.grey,
@@ -69,8 +86,8 @@ class _HomepageState extends State<Homepage> {
                 ),
               ],
             ),
-            SizedBox(height: 36),
-            Text(
+            const SizedBox(height: 36),
+            const Text(
               'Most Watched',
               style: TextStyle(
                 fontFamily: 'Clash-medium',
@@ -78,35 +95,23 @@ class _HomepageState extends State<Homepage> {
                 color: Colors.black,
               ),
             ),
-            SizedBox(height: 36),
-            SizedBox(
-              width: double.infinity,
-              child: CarouselSlider.builder(
-                itemCount: 10,
-                options: CarouselOptions(
-                  height: 300,
-                  autoPlay: true,
-                  viewportFraction: 0.55,
-                  enlargeCenterPage: true,
-                  pageSnapping: true,
-                  autoPlayCurve: Curves.fastEaseInToSlowEaseOut,
-                  autoPlayAnimationDuration: const Duration(seconds: 1),
-                ),
-                itemBuilder: (context, itemIndex, pageViewIndex) {
-                  return ClipRRect(
-                    borderRadius: BorderRadius.circular(18),
-                    child: Container(
-                      height: 300,
-                      width: 200,
-                      color: Colors.greenAccent,
-                    ),
+            const SizedBox(height: 36),
+            FutureBuilder<List<Movie>>(
+              future: mostwatched,
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return Center(
+                    child: Text(snapshot.error.toString()),
                   );
-                },
-              ),
+                } else if (snapshot.hasData) {
+                  return MostWatched(snapshot: snapshot);
+                } else {
+                  return const Center(child: CircularProgressIndicator());
+                }
+              },
             ),
-            SizedBox(height: 36),
-
-            Text(
+            const SizedBox(height: 36),
+            const Text(
               'Category',
               style: TextStyle(
                 fontFamily: 'Clash-medium',
@@ -114,30 +119,56 @@ class _HomepageState extends State<Homepage> {
                 color: Colors.black,
               ),
             ),
-            SizedBox(height: 36),
-            SizedBox(
-              width: double.infinity,
-              child: CarouselSlider.builder(
-                itemCount: 8,
-                options: CarouselOptions(
-                  height: 50,
-                  viewportFraction: 0.2,
-                  pageSnapping: true,
-                  enableInfiniteScroll: false,
-                    initialPage: 0,
-                ),
-                itemBuilder: (context, itemIndex, pageViewIndex) {
-                  return ClipOval(
-                    child: Container(
-                      height: 50,
-                      width: 50,
-                      color: Colors.greenAccent,
-                    ),
-                  );
-                },
+            const SizedBox(height: 36),
+            const Catagory(),
+            const SizedBox(height: 36),
+            const Text(
+              'Top Rated Movies',
+              style: TextStyle(
+                fontFamily: 'Clash-medium',
+                fontSize: 24,
+                color: Colors.black,
               ),
             ),
-          ],
+            const SizedBox(height: 18),
+            FutureBuilder<List<Movie>>(
+              future: toprated,
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return Center(
+                    child: Text(snapshot.error.toString()),
+                  );
+                } else if (snapshot.hasData) {
+                  return TopRated(snapshot: snapshot);
+                } else {
+                  return const Center(child: CircularProgressIndicator());
+                }
+              },
+            ),
+            const SizedBox(height: 36),
+            const Text(
+              'Upcomming',
+              style: TextStyle(
+                fontFamily: 'Clash-medium',
+                fontSize: 24,
+                color: Colors.black,
+              ),
+            ),
+            const SizedBox(height: 18),
+            FutureBuilder<List<Movie>>(
+              future: upcoming,
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return Center(
+                    child: Text(snapshot.error.toString()),
+                  );
+                } else if (snapshot.hasData) {
+                  return Upcoming(snapshot: snapshot);
+                } else {
+                  return const Center(child: CircularProgressIndicator());
+                }
+              },
+            ),          ],
         ),
       ),
       // floatingActionButton: FloatingActionButton(
