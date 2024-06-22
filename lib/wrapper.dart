@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_login/admin_panel/login.dart';
+import 'package:firebase_login/navigation_menu.dart';
 import 'package:firebase_login/user_panel/homepage.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +22,7 @@ class _WrapperState extends State<Wrapper> {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return const Homepage();
+            return  NavigationMenu();
           } else {
             return const Login();
           }

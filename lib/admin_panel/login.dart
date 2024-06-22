@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_login/admin_panel/forgot_password.dart';
 import 'package:firebase_login/admin_panel/register.dart';
+import 'package:firebase_login/navigation_menu.dart';
 import 'package:firebase_login/user_panel/homepage.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui'; // Import to use the ImageFilter
@@ -23,7 +24,7 @@ class _LoginState extends State<Login> {
       // Navigate to homepage or display success message
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const Homepage()),
+        MaterialPageRoute(builder: (context) =>  NavigationMenu()),
       );
     } on FirebaseAuthException catch (e) {
       // Display error message

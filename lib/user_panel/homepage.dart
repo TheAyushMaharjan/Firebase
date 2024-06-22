@@ -168,13 +168,16 @@ class _HomepageState extends State<Homepage> {
                   return const Center(child: CircularProgressIndicator());
                 }
               },
-            ),          ],
+            ),
+          ],
         ),
+
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () => signOutAndNavigateToLogin(),
-      //   child: const Icon(Icons.logout),
-      // ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => signOutAndNavigateToLogin(),
+        child: const Icon(Icons.logout),
+      ),
+
     );
   }
 }
