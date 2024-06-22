@@ -1,7 +1,7 @@
-import 'package:firebase_login/api/api.dart';
-import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_login/admin_panel/login.dart';
+import 'package:flutter/material.dart';
+import '../api/api.dart';
 import '../models/movie.dart';
 import '../widgets/Catagory.dart';
 import '../widgets/MostWatched.dart';
@@ -9,7 +9,7 @@ import '../widgets/TopRated.dart';
 import '../widgets/Upcoming.dart';
 
 class Homepage extends StatefulWidget {
-  const Homepage({super.key});
+  const Homepage({Key? key}) : super(key: key);
 
   @override
   State<Homepage> createState() => _HomepageState();
@@ -23,18 +23,19 @@ class _HomepageState extends State<Homepage> {
   @override
   void initState() {
     super.initState();
-    mostwatched = Api().getMostWatched(); //
+    mostwatched = Api().getMostWatched();
     toprated = Api().getTopRated();
     upcoming = Api().getUpcomming();
   }
 
-  User? user = FirebaseAuth.instance.currentUser; // Initialize user in State
+  User? user = FirebaseAuth.instance.currentUser;
 
   void signOutAndNavigateToLogin() async {
     try {
       await FirebaseAuth.instance.signOut();
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const Login()));
+        MaterialPageRoute(builder: (context) => const Login()),
+      );
     } catch (e) {
       print("Sign out error: $e");
     }
@@ -43,6 +44,8 @@ class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white, // Light pink background color
+
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         padding: const EdgeInsets.symmetric(vertical: 60, horizontal: 16),
@@ -87,97 +90,159 @@ class _HomepageState extends State<Homepage> {
               ],
             ),
             const SizedBox(height: 36),
-            const Text(
-              'Most Watched',
-              style: TextStyle(
-                fontFamily: 'Clash-medium',
-                fontSize: 24,
-                color: Colors.black,
-              ),
-            ),
-            const SizedBox(height: 36),
-            FutureBuilder<List<Movie>>(
-              future: mostwatched,
-              builder: (context, snapshot) {
-                if (snapshot.hasError) {
-                  return Center(
-                    child: Text(snapshot.error.toString()),
-                  );
-                } else if (snapshot.hasData) {
-                  return MostWatched(snapshot: snapshot);
-                } else {
-                  return const Center(child: CircularProgressIndicator());
-                }
-              },
-            ),
-            const SizedBox(height: 36),
-            const Text(
-              'Category',
-              style: TextStyle(
-                fontFamily: 'Clash-medium',
-                fontSize: 24,
-                color: Colors.black,
+            // Category section
+            Center(
+              child: const Text(
+                'Category',
+                style: TextStyle(
+                  fontFamily: 'Clash-medium',
+                  fontSize: 24,
+                  color: Colors.black,
+                ),
               ),
             ),
             const SizedBox(height: 36),
             const Catagory(),
             const SizedBox(height: 36),
-            const Text(
-              'Top Rated Movies',
-              style: TextStyle(
-                fontFamily: 'Clash-medium',
-                fontSize: 24,
-                color: Colors.black,
+
+            // Consolidated section from Most Watched to Upcoming with rounded top corners
+            _buildSection(
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Most Watched section
+                  _buildSubSection(
+                    header: const Text(
+                      'Most Watched',
+                      style: TextStyle(
+                        fontFamily: 'Clash-medium',
+                        fontSize: 24,
+                        color: Colors.black,
+                      ),
+                    ),
+                    content: FutureBuilder<List<Movie>>(
+                      future: mostwatched,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasError) {
+                          return Center(
+                            child: Text(snapshot.error.toString()),
+                          );
+                        } else if (snapshot.hasData) {
+                          return MostWatched(snapshot: snapshot);
+                        } else {
+                          return const Center(child: CircularProgressIndicator());
+                        }
+                      },
+                    ),
+                  ),
+
+                  // Top Rated Movies section
+                  _buildSubSection(
+                    header: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        SizedBox(height: 36),
+                        Text(
+                          'Top Rated Movies',
+                          style: TextStyle(
+                            fontFamily: 'Clash-medium',
+                            fontSize: 24,
+                            color: Colors.black,
+                          ),
+                        ),
+                        SizedBox(height: 18),
+                      ],
+                    ),
+                    content: FutureBuilder<List<Movie>>(
+                      future: toprated,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasError) {
+                          return Center(
+                            child: Text(snapshot.error.toString()),
+                          );
+                        } else if (snapshot.hasData) {
+                          return TopRated(snapshot: snapshot);
+                        } else {
+                          return const Center(child: CircularProgressIndicator());
+                        }
+                      },
+                    ),
+                  ),
+
+                  // Upcoming section
+                  _buildSubSection(
+                    header: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        SizedBox(height: 36),
+                        Text(
+                          'Upcoming',
+                          style: TextStyle(
+                            fontFamily: 'Clash-medium',
+                            fontSize: 24,
+                            color: Colors.black,
+                          ),
+                        ),
+                        SizedBox(height: 18),
+                      ],
+                    ),
+                    content: FutureBuilder<List<Movie>>(
+                      future: upcoming,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasError) {
+                          return Center(
+                            child: Text(snapshot.error.toString()),
+                          );
+                        } else if (snapshot.hasData) {
+                          return Upcoming(snapshot: snapshot);
+                        } else {
+                          return const Center(child: CircularProgressIndicator());
+                        }
+                      },
+                    ),
+                  ),
+                ],
               ),
-            ),
-            const SizedBox(height: 18),
-            FutureBuilder<List<Movie>>(
-              future: toprated,
-              builder: (context, snapshot) {
-                if (snapshot.hasError) {
-                  return Center(
-                    child: Text(snapshot.error.toString()),
-                  );
-                } else if (snapshot.hasData) {
-                  return TopRated(snapshot: snapshot);
-                } else {
-                  return const Center(child: CircularProgressIndicator());
-                }
-              },
-            ),
-            const SizedBox(height: 36),
-            const Text(
-              'Upcomming',
-              style: TextStyle(
-                fontFamily: 'Clash-medium',
-                fontSize: 24,
-                color: Colors.black,
-              ),
-            ),
-            const SizedBox(height: 18),
-            FutureBuilder<List<Movie>>(
-              future: upcoming,
-              builder: (context, snapshot) {
-                if (snapshot.hasError) {
-                  return Center(
-                    child: Text(snapshot.error.toString()),
-                  );
-                } else if (snapshot.hasData) {
-                  return Upcoming(snapshot: snapshot);
-                } else {
-                  return const Center(child: CircularProgressIndicator());
-                }
-              },
             ),
           ],
         ),
-
       ),
+
       floatingActionButton: FloatingActionButton(
         onPressed: () => signOutAndNavigateToLogin(),
         child: const Icon(Icons.logout),
       ),
+    );
+  }
 
+  // Helper method to wrap a section with rounded top corners
+  Widget _buildSection(Widget child) {
+    return ClipRRect(
+      borderRadius: const BorderRadius.only(
+        topLeft: Radius.circular(20),
+
+        topRight: Radius.circular(20),
+      ),
+      child: Container(
+        color: Colors.black12, // Section background color
+        padding: const EdgeInsets.all(16),
+        child: child,
+      ),
+    );
+  }
+
+  // Helper method to wrap a subsection with padding
+  Widget _buildSubSection({required Widget header, required Widget content}) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          header,
+          const SizedBox(height: 18),
+          content,
+        ],
+      ),
     );
   }
 }
