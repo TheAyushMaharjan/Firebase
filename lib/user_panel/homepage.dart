@@ -224,7 +224,7 @@ class _HomepageState extends State<Homepage> {
     );
   }
 
-  // Helper method to wrap a section with rounded top corners
+  // Help to round the  top corners
   Widget _buildSection(Widget child) {
     return ClipRRect(
       borderRadius: const BorderRadius.only(
@@ -238,7 +238,7 @@ class _HomepageState extends State<Homepage> {
     );
   }
 
-  // Helper method to wrap a subsection with padding
+  // Help to remove padding
   Widget _buildSubSection({required Widget header, required Widget content}) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 24),
