@@ -48,46 +48,49 @@ class _HomepageState extends State<Homepage> {
 
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
-        padding: const EdgeInsets.symmetric(vertical: 60, horizontal: 16),
+        padding: const EdgeInsets.symmetric(vertical: 60),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Welcome,',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Roboto',
-                        color: Colors.black,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Welcome,',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Roboto',
+                          color: Colors.black,
+                        ),
                       ),
-                    ),
-                    Text(
-                      user?.email ?? 'No User',
-                      style: const TextStyle(
-                        fontSize: 12,
-                        fontFamily: 'Roboto',
-                        color: Colors.grey,
+                      Text(
+                        user?.email ?? 'No User',
+                        style: const TextStyle(
+                          fontSize: 12,
+                          fontFamily: 'Roboto',
+                          color: Colors.grey,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                IconButton(
-                  icon: const Icon(
-                    Icons.bookmark,
-                    size: 36.0,
-                    color: Colors.black,
+                    ],
                   ),
-                  onPressed: () {
-                    // Handle bookmark action here
-                  },
-                ),
-              ],
+                  IconButton(
+                    icon: const Icon(
+                      Icons.bookmark,
+                      size: 36.0,
+                      color: Colors.black,
+                    ),
+                    onPressed: () {
+                      // Handle bookmark action here
+                    },
+                  ),
+                ],
+              ),
             ),
             const SizedBox(height: 36),
             // Category section
@@ -101,107 +104,113 @@ class _HomepageState extends State<Homepage> {
                 ),
               ),
             ),
-            const SizedBox(height: 36),
+            const SizedBox(height: 18),
             const Catagory(),
             const SizedBox(height: 36),
 
             // Consolidated section from Most Watched to Upcoming with rounded top corners
             _buildSection(
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Most Watched section
-                  _buildSubSection(
-                    header: const Text(
-                      'Most Watched',
-                      style: TextStyle(
-                        fontFamily: 'Clash-medium',
-                        fontSize: 24,
-                        color: Colors.black,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+
+                  children: [
+                    const SizedBox(height: 24),
+
+                    // Most Watched section
+                    _buildSubSection(
+                      header: const Text(
+                        'Most Watched',
+                        style: TextStyle(
+                          fontFamily: 'Clash-medium',
+                          fontSize: 24,
+                          color: Colors.black,
+                        ),
+                      ),
+                      content: FutureBuilder<List<Movie>>(
+                        future: mostwatched,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasError) {
+                            return Center(
+                              child: Text(snapshot.error.toString()),
+                            );
+                          } else if (snapshot.hasData) {
+                            return MostWatched(snapshot: snapshot);
+                          } else {
+                            return const Center(child: CircularProgressIndicator());
+                          }
+                        },
                       ),
                     ),
-                    content: FutureBuilder<List<Movie>>(
-                      future: mostwatched,
-                      builder: (context, snapshot) {
-                        if (snapshot.hasError) {
-                          return Center(
-                            child: Text(snapshot.error.toString()),
-                          );
-                        } else if (snapshot.hasData) {
-                          return MostWatched(snapshot: snapshot);
-                        } else {
-                          return const Center(child: CircularProgressIndicator());
-                        }
-                      },
-                    ),
-                  ),
 
-                  // Top Rated Movies section
-                  _buildSubSection(
-                    header: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        SizedBox(height: 36),
-                        Text(
-                          'Top Rated Movies',
-                          style: TextStyle(
-                            fontFamily: 'Clash-medium',
-                            fontSize: 24,
-                            color: Colors.black,
+                    // Top Rated Movies section
+                    _buildSubSection(
+                      header: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: const [
+                          SizedBox(height: 36),
+                          Text(
+                            'Top Rated Movies',
+                            style: TextStyle(
+                              fontFamily: 'Clash-medium',
+                              fontSize: 24,
+                              color: Colors.black,
+                            ),
                           ),
-                        ),
-                        SizedBox(height: 18),
-                      ],
+                          SizedBox(height: 18),
+                        ],
+                      ),
+                      content: FutureBuilder<List<Movie>>(
+                        future: toprated,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasError) {
+                            return Center(
+                              child: Text(snapshot.error.toString()),
+                            );
+                          } else if (snapshot.hasData) {
+                            return TopRated(snapshot: snapshot);
+                          } else {
+                            return const Center(child: CircularProgressIndicator());
+                          }
+                        },
+                      ),
                     ),
-                    content: FutureBuilder<List<Movie>>(
-                      future: toprated,
-                      builder: (context, snapshot) {
-                        if (snapshot.hasError) {
-                          return Center(
-                            child: Text(snapshot.error.toString()),
-                          );
-                        } else if (snapshot.hasData) {
-                          return TopRated(snapshot: snapshot);
-                        } else {
-                          return const Center(child: CircularProgressIndicator());
-                        }
-                      },
-                    ),
-                  ),
 
-                  // Upcoming section
-                  _buildSubSection(
-                    header: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        SizedBox(height: 36),
-                        Text(
-                          'Upcoming',
-                          style: TextStyle(
-                            fontFamily: 'Clash-medium',
-                            fontSize: 24,
-                            color: Colors.black,
+                    // Upcoming section
+                    _buildSubSection(
+                      header: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: const [
+                          SizedBox(height: 36),
+                          Text(
+                            'Upcoming',
+                            style: TextStyle(
+                              fontFamily: 'Clash-medium',
+                              fontSize: 24,
+                              color: Colors.black,
+                            ),
                           ),
-                        ),
-                        SizedBox(height: 18),
-                      ],
+                          SizedBox(height: 18),
+                        ],
+                      ),
+                      content: FutureBuilder<List<Movie>>(
+                        future: upcoming,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasError) {
+                            return Center(
+                              child: Text(snapshot.error.toString()),
+                            );
+                          } else if (snapshot.hasData) {
+                            return Upcoming(snapshot: snapshot);
+                          } else {
+                            return const Center(child: CircularProgressIndicator());
+                          }
+                        },
+                      ),
                     ),
-                    content: FutureBuilder<List<Movie>>(
-                      future: upcoming,
-                      builder: (context, snapshot) {
-                        if (snapshot.hasError) {
-                          return Center(
-                            child: Text(snapshot.error.toString()),
-                          );
-                        } else if (snapshot.hasData) {
-                          return Upcoming(snapshot: snapshot);
-                        } else {
-                          return const Center(child: CircularProgressIndicator());
-                        }
-                      },
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ],
@@ -220,12 +229,10 @@ class _HomepageState extends State<Homepage> {
     return ClipRRect(
       borderRadius: const BorderRadius.only(
         topLeft: Radius.circular(20),
-
         topRight: Radius.circular(20),
       ),
       child: Container(
         color: Colors.black12, // Section background color
-        padding: const EdgeInsets.all(16),
         child: child,
       ),
     );
