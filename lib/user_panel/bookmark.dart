@@ -10,21 +10,8 @@ class Bookmark extends StatefulWidget {
 class _BookmarkState extends State<Bookmark> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Bookmarks', style: Theme.of(context).textTheme.headlineMedium,),
-        
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.all(24),
-          child: Column(
-            children: [
+    return Container(
 
-            ],
-          ),
-        ),
-      ),
     );
   }
 }
