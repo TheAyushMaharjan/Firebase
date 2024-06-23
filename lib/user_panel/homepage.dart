@@ -55,6 +55,7 @@ class _HomepageState extends State<Homepage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -93,16 +94,7 @@ class _HomepageState extends State<Homepage> {
             ),
             const SizedBox(height: 36),
             // Category section
-            Center(
-              child: const Text(
-                'Category',
-                style: TextStyle(
-                  fontFamily: 'Clash-medium',
-                  fontSize: 24,
-                  color: Colors.black,
-                ),
-              ),
-            ),
+
             const SizedBox(height: 18),
             const Catagory(),
             const SizedBox(height: 36),
