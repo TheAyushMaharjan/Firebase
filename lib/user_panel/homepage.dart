@@ -55,7 +55,6 @@ class _HomepageState extends State<Homepage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -217,10 +216,7 @@ class _HomepageState extends State<Homepage> {
         ),
       ),
 
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => signOutAndNavigateToLogin(),
-        child: const Icon(Icons.logout),
-      ),
+
     );
   }
 
