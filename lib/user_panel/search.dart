@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
 class Search extends StatefulWidget {
-
   const Search({super.key});
 
   @override
@@ -10,7 +9,9 @@ class Search extends StatefulWidget {
 }
 
 class _SearchState extends State<Search> {
+
   final TextEditingController searchController = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
