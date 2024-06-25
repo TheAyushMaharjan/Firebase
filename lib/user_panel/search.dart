@@ -4,7 +4,7 @@ import 'package:iconsax/iconsax.dart';
 import '../api/api.dart';
 
 class Search extends StatefulWidget {
-  const Search({super.key});
+  const Search({Key? key}) : super(key: key);
 
   @override
   State<Search> createState() => _SearchState();
@@ -87,11 +87,39 @@ class _SearchState extends State<Search> {
                 itemCount: searchResult.length,
                 itemBuilder: (context, index) {
                   var result = searchResult[index];
-                  return ListTile(
-                    leading: Image.network(
-                        'https://image.tmdb.org/t/p/w500${result['poster_path']}'),
-                    title: Text('Movie Name: ${result['title']}'),
-                    subtitle: Text('Rating: ${result['vote_average']}'),
+                  return Container(
+                    height: 125,
+                    padding: EdgeInsets.all(12),
+                    margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 2,
+                          blurRadius: 5,
+                          offset: Offset(0, 3),
+                        ),
+                      ],
+                    ),
+                    child: ListTile(
+                      contentPadding: EdgeInsets.zero,
+                      leading: Image.network(
+                        'https://image.tmdb.org/t/p/w500${result['poster_path']}',
+                        width: 120, // Adjust the width to make the picture bigger
+                        height: 125, // Adjust the height to make the picture bigger
+                        fit: BoxFit.cover,
+                      ),
+                      title: Text(
+                        result['title'],
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      subtitle: Text(
+                        'Rating: ${result['vote_average']}',
+                        style: TextStyle(color: Colors.black, fontSize: 16),
+                      ),
+                    ),
                   );
                 },
               ),
