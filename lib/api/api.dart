@@ -14,7 +14,11 @@ class Api {
   static const _upcommingUrl =
       'https://api.themoviedb.org/3/movie/upcoming?api_key=${Constants.apikey}';
 
-//For Most watched
+  static const _searchUrl =
+      'https://api.themoviedb.org/3/movie/343611?api_key=${Constants.apikey}';
+
+
+  //For Most watched
   Future<List<Movie>>getMostWatched() async{
     final response = await http.get(Uri.parse(_mostwatchedUrl));
 

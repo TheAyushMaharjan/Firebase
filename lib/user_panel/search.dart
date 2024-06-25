@@ -11,7 +11,13 @@ class Search extends StatefulWidget {
 class _SearchState extends State<Search> {
 
   final TextEditingController searchController = TextEditingController();
+  bool showList = false;
+  var val1;
 
+  Future<void> searchListFunction(String val) async{
+  var searchUrl =
+      'https://api.themoviedb.org/3/movie/343611?api_key=API_KEY';
+  }
 
   @override
   Widget build(BuildContext context) {
