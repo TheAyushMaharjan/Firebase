@@ -4,9 +4,9 @@ import '../screens/details_screen.dart';
 
 class TopRated extends StatelessWidget {
   const TopRated({
-    Key? key,
+    super.key,
     required this.snapshot,
-  }) : super(key: key);
+  });
 
   final AsyncSnapshot snapshot;
 

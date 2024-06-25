@@ -21,7 +21,7 @@ class NavigationMenu extends StatelessWidget {
           selectedIndex: controller.selectIndex.value,
           onDestinationSelected: (index) =>
           controller.selectIndex.value = index,
-          destinations: [
+          destinations: const [
             NavigationDestination(
               icon: Icon(Iconsax.home),
               label: 'Home',
@@ -50,9 +50,9 @@ class NavigationController extends GetxController {
   final Rx<int> selectIndex = 0.obs;
 
   final List<Widget> screens = [
-    Homepage(),  // Should be Stateful
-    Search(),    // Should be Stateful
-    Bookmark(),  // Should be Stateful
-    Userpanel(), // Should be Stateful
+    const Homepage(),  // Should be Stateful
+    const Search(),    // Should be Stateful
+    const Bookmark(),  // Should be Stateful
+    const Userpanel(), // Should be Stateful
   ];
 }

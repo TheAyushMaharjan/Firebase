@@ -24,7 +24,7 @@ class _RegisterState extends State<Register> {
         email: emailController.text,
         password: passwordController.text,
       );
-      Get.offAll(Wrapper());
+      Get.offAll(const Wrapper());
     } on FirebaseAuthException catch (e) {
       String message = '';
       if (e.code == 'weak-password') {

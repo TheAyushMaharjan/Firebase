@@ -9,7 +9,7 @@ import '../widgets/TopRated.dart';
 import '../widgets/Upcoming.dart';
 
 class Homepage extends StatefulWidget {
-  const Homepage({Key? key}) : super(key: key);
+  const Homepage({super.key});
 
   @override
   State<Homepage> createState() => _HomepageState();
@@ -25,7 +25,7 @@ class _HomepageState extends State<Homepage> {
     super.initState();
     mostwatched = Api().getMostWatched();
     toprated = Api().getTopRated();
-    upcoming = Api().getUpcomming();
+    upcoming = Api().getUpcoming();
   }
 
   User? user = FirebaseAuth.instance.currentUser;
@@ -137,9 +137,9 @@ class _HomepageState extends State<Homepage> {
 
                     // Top Rated Movies section
                     _buildSubSection(
-                      header: Column(
+                      header: const Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children: [
                           SizedBox(height: 36),
                           Text(
                             'Top Rated Movies',
@@ -170,9 +170,9 @@ class _HomepageState extends State<Homepage> {
 
                     // Upcoming section
                     _buildSubSection(
-                      header: Column(
+                      header: const Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children: [
                           SizedBox(height: 36),
                           Text(
                             'Upcoming',

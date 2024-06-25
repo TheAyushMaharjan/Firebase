@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 
 class MostWatched extends StatelessWidget {
   const MostWatched({
-    Key? key,
+    super.key,
     required this.snapshot,
-  }) : super(key: key);
+  });
 
   final AsyncSnapshot snapshot;
 

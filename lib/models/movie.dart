@@ -1,43 +1,43 @@
 
-class Movie{
-  String title;
-  String backDropPath;
-  String originalTitle;
-  String overview;
-  String posterPath;
-  String releaseDate;
-  double voteAverage;
+class Movie {
+  final int id;
+  final String title;
+  final String overview;
+  final String releaseDate;
+  final String posterPath;
+  final double voteAverage;
 
   Movie({
+    required this.id,
     required this.title,
-    required this.backDropPath,
-    required this.originalTitle,
     required this.overview,
-    required this.posterPath,
     required this.releaseDate,
+    required this.posterPath,
     required this.voteAverage,
+  });
 
-});
-  factory Movie.fromJason(Map<String, dynamic> json){
+  factory Movie.fromJson(Map<String, dynamic> json) {
     return Movie(
-        title: json["title"],
-        backDropPath: json["backdrop_path"],
-        originalTitle: json["original_title"],
-        overview: json["overview"],
-        posterPath: json["poster_path"],
-        releaseDate: json["release_date"],
-        voteAverage: json["vote_average"].toDouble(),
+      id: json['id'],
+      title: json['title'],
+      overview: json['overview'],
+      releaseDate: json['release_date'],
+      posterPath: json['poster_path'],
+      voteAverage: (json['vote_average'] as num).toDouble(),
     );
   }
-  //If you want to post into the api
-  // Map<String, dynamic> toJson()=>{
-  //   "title":title,
-  //   "overview":overview,
-  // };
-
-  //If you want to post into the api
-  // Map<String, dynamic> toJson()=>{
-  //   "title":title,
-  //   "overview":overview,
-  // };
 }
+
+//If you want to post into the api
+// Map<String, dynamic> toJson()=>{
+//   "title":title,
+//   "overview":overview,
+// };
+
+//If you want to post into the api
+// Map<String, dynamic> toJson()=>{
+//   "title":title,
+//   "overview":overview,
+// };
+
+

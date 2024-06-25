@@ -16,7 +16,7 @@ class _UserpanelState extends State<Userpanel> {
     // Implement your sign-out logic here
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => Login()),
+      MaterialPageRoute(builder: (context) => const Login()),
     );
   }
 
@@ -34,8 +34,8 @@ class _UserpanelState extends State<Userpanel> {
                 children: [
                 Column(
                   children: [
-                    Icon(Icons.person, size: 40),
-                    SizedBox(height: 12,),
+                    const Icon(Icons.person, size: 40),
+                    const SizedBox(height: 12,),
                     Text(
                       user?.email ?? 'No User',
                       style: const TextStyle(
@@ -46,7 +46,7 @@ class _UserpanelState extends State<Userpanel> {
                     ),
                   ],
             ),
-                  Icon(Icons.settings, size: 40), // Settings icon
+                  const Icon(Icons.settings, size: 40), // Settings icon
                 ],
               ),
             ),

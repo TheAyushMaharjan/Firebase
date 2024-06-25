@@ -1,8 +1,6 @@
-import 'dart:ui';
 
 import 'package:firebase_login/constants.dart';
 import 'package:firebase_login/models/movie.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class DetailsScreen extends StatelessWidget {
@@ -20,12 +18,12 @@ class DetailsScreen extends StatelessWidget {
               height: 60,
               width: 60,
               margin: const EdgeInsets.only(top: 24, left: 6),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 shape: BoxShape.circle,
                 color: Colors.black54,
               ),
               child: IconButton(
-                icon: Icon(
+                icon: const Icon(
                   Icons.arrow_back_rounded,
                   color: Colors.white,
                 ),
@@ -61,11 +59,11 @@ class DetailsScreen extends StatelessWidget {
           ),
           SliverToBoxAdapter(
             child: Padding(
-              padding: EdgeInsets.all(12.0),
+              padding: const EdgeInsets.all(12.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     'Overview',
                     style: TextStyle(
                       fontFamily: 'Clash',
@@ -76,7 +74,7 @@ class DetailsScreen extends StatelessWidget {
                   const SizedBox(height: 6),
                   Text(
                     movie.overview,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 12,
                       color: Colors.black,
                     ),
@@ -93,13 +91,13 @@ class DetailsScreen extends StatelessWidget {
                           ),
                           child: Row(
                             children: [
-                              Text(
+                              const Text(
                                 'Release Date: ',
                                 style: TextStyle(fontSize: 12),
                               ),
                               Text(
                                 movie.releaseDate,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 12,
                                   color: Colors.black,
                                 ),
