@@ -5,7 +5,7 @@ import '../models/movie.dart';
 import '../screens/details_screen.dart';
 
 class Search extends StatefulWidget {
-  const Search({Key? key}) : super(key: key);
+  const Search({super.key});
 
   @override
   State<Search> createState() => _SearchState();
@@ -49,6 +49,7 @@ class _SearchState extends State<Search> {
       // Handle error loading details
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -150,6 +151,8 @@ class _SearchState extends State<Search> {
                   );
                 },
               ),
+
+
             if (showList && searchResult.isEmpty)
               const Center(child: Text('No results found')),
           ],

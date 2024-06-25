@@ -1,10 +1,9 @@
-
 import 'package:firebase_login/constants.dart';
 import 'package:firebase_login/models/movie.dart';
 import 'package:flutter/material.dart';
 
 class DetailsScreen extends StatelessWidget {
-  const DetailsScreen({super.key, required this.movie});
+  const DetailsScreen({Key? key, required this.movie}) : super(key: key);
 
   final Movie movie;
 
@@ -13,7 +12,7 @@ class DetailsScreen extends StatelessWidget {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          SliverAppBar.medium(
+          SliverAppBar(
             leading: Container(
               height: 60,
               width: 60,
@@ -38,8 +37,7 @@ class DetailsScreen extends StatelessWidget {
             flexibleSpace: FlexibleSpaceBar(
               title: Text(
                 movie.title,
-                style: TextStyle(
-                  backgroundColor: Colors.black.withOpacity(0.4),
+                style: const TextStyle(
                   fontSize: 24,
                   color: Colors.white,
                 ),
@@ -56,6 +54,14 @@ class DetailsScreen extends StatelessWidget {
                 ),
               ),
             ),
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.bookmark_border),
+                onPressed: () {
+                  // Implement bookmark functionality here
+                },
+              ),
+            ],
           ),
           SliverToBoxAdapter(
             child: Padding(
@@ -63,15 +69,26 @@ class DetailsScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Overview',
-                    style: TextStyle(
-                      fontFamily: 'Clash',
-                      fontSize: 36,
-                      color: Colors.black,
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Overview',
+                        style: const TextStyle(
+                          fontFamily: 'Clash',
+                          fontSize: 36,
+                          color: Colors.black,
+                        ),
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.bookmark_border),
+                        onPressed: () {
+                          // Implement bookmark functionality here
+                        },
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 6),
+                  const SizedBox(height: 12),
                   Text(
                     movie.overview,
                     style: const TextStyle(
@@ -104,10 +121,9 @@ class DetailsScreen extends StatelessWidget {
                               ),
                             ],
                           ),
-                        )
+                        ),
                       ],
                     ),
-
                   ),
                 ],
               ),

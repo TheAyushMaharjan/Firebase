@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_login/admin_panel/login.dart';
+import 'package:firebase_login/user_panel/bookmark.dart';
 import 'package:flutter/material.dart';
 import '../api/api.dart';
 import '../models/movie.dart';
@@ -86,6 +87,7 @@ class _HomepageState extends State<Homepage> {
                       color: Colors.black,
                     ),
                     onPressed: () {
+                      Bookmark();
                       // Handle bookmark action here
                     },
                   ),
