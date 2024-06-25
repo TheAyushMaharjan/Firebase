@@ -49,7 +49,17 @@ class _SearchState extends State<Search> {
                 fillColor: Colors.grey,
                 filled: true,
               ),
+              onSubmitted: (value){
+                searchController.clear();
+                setState(() {
+                  val1= value;
+                });
+              },
               onChanged: (value){
+                searchController.clear();
+                setState(() {
+                  val1= value;
+                });
 
               },
             ),
