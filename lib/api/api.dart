@@ -15,7 +15,8 @@ class Api {
       'https://api.themoviedb.org/3/movie/upcoming?api_key=${Constants.apikey}';
 
   static const _searchUrl =
-      'https://api.themoviedb.org/3/movie/343611?api_key=${Constants.apikey}';
+      'https://api.themoviedb.org/3/search/movie?api_key=${Constants.apikey}&query=';
+
 
 
   //For Most watched
@@ -62,4 +63,26 @@ class Api {
     }
 
   }
+  // For Search
+  Future<List<Map<String, dynamic>>> searchMovies(String query) async {
+    final searchUrl = _searchUrl + query;
+    final response = await http.get(Uri.parse(searchUrl));
+
+    if (response.statusCode == 200) {
+      final searchJson = json.decode(response.body)['results'] as List;
+      return searchJson
+          .where((item) => item['title'] != null && item['poster_path'] != null && item['vote_average'] != null)
+          .map((item) => {
+        'title': item['title'],
+        'poster_path': item['poster_path'],
+        'vote_average': item['vote_average'],
+      })
+          .take(20)
+          .toList();
+    } else {
+      throw Exception('Failed to fetch data');
+    }
+  }
 }
+
+
