@@ -3,7 +3,7 @@ import 'package:firebase_login/models/movie.dart';
 import 'package:flutter/material.dart';
 
 class DetailsScreen extends StatelessWidget {
-  const DetailsScreen({Key? key, required this.movie}) : super(key: key);
+  const DetailsScreen({super.key, required this.movie});
 
   final Movie movie;
 
@@ -72,9 +72,9 @@ class DetailsScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
+                      const Text(
                         'Overview',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontFamily: 'Clash',
                           fontSize: 36,
                           color: Colors.black,
