@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_login/models/movie.dart';
 import 'package:firebase_login/screens/details_screen.dart';
-import 'package:firebase_login/models/movie.dart';
 
 class BookmarkItem {
   final String id; // Assuming id as a unique identifier for each bookmarked item
@@ -10,7 +9,7 @@ class BookmarkItem {
   BookmarkItem({required this.id, required this.movie});
 }
 class Bookmark extends StatefulWidget {
-  const Bookmark({Key? key}) : super(key: key);
+  const Bookmark({super.key});
 
   @override
   State<Bookmark> createState() => _BookmarkState();
