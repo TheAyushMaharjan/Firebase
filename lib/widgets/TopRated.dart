@@ -1,3 +1,4 @@
+import 'package:firebase_login/models/movie.dart';
 import 'package:flutter/material.dart';
 import '../constants.dart';
 import '../screens/details_screen.dart';
@@ -5,7 +6,7 @@ import '../screens/details_screen.dart';
 class TopRated extends StatelessWidget {
   const TopRated({
     super.key,
-    required this.snapshot,
+    required this.snapshot, required void Function(Movie movie) onBookmarkPressed,
   });
 
   final AsyncSnapshot snapshot;
@@ -26,7 +27,7 @@ class TopRated extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => DetailsScreen(
-                    movie: snapshot.data[index],
+                    movie: snapshot.data[index], onBookmarkPressed: (Movie ) {  },
                   ),
                 ),
               );

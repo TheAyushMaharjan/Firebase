@@ -41,7 +41,7 @@ class _SearchState extends State<Search> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => DetailsScreen(movie: movie),
+          builder: (context) => DetailsScreen(movie: movie, onBookmarkPressed: (Movie ) {  },),
         ),
       );
     } catch (e) {

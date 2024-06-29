@@ -5,6 +5,7 @@ import 'package:firebase_login/user_panel/bookmark.dart';
 import 'package:firebase_login/user_panel/homepage.dart';
 import 'package:firebase_login/user_panel/search.dart';
 import 'package:firebase_login/user_panel/userpanel.dart';
+import 'package:firebase_login/models/movie.dart';
 
 class NavigationMenu extends StatelessWidget {
   NavigationMenu({super.key});
@@ -49,10 +50,27 @@ class NavigationMenu extends StatelessWidget {
 class NavigationController extends GetxController {
   final Rx<int> selectIndex = 0.obs;
 
-  final List<Widget> screens = [
+  // Manage bookmarks as an observable list
+  final RxList<BookmarkItem> bookmarks = <BookmarkItem>[].obs;
+
+  // Method to handle bookmark toggle
+  void onBookmarkPressed(Movie movie) {
+    final bookmarkItem = BookmarkItem(id: movie.id.toString(), movie: movie);
+    if (bookmarks.any((item) => item.id == bookmarkItem.id)) {
+      bookmarks.removeWhere((item) => item.id == bookmarkItem.id);
+    } else {
+      bookmarks.add(bookmarkItem);
+    }
+  }
+
+  // Update the screens list to use dynamic data
+  List<Widget> get screens => [
     const Homepage(),  // Should be Stateful
     const Search(),    // Should be Stateful
-    const Bookmark(),  // Should be Stateful
+    Obx(() => Bookmark(
+      bookmarks: bookmarks.toList(),  // Pass the bookmarks as a list
+      onBookmarkPressed: onBookmarkPressed,  // Pass the bookmark handler
+    )),
     const Userpanel(), // Should be Stateful
   ];
 }

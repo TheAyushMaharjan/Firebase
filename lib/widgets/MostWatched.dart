@@ -1,12 +1,13 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_login/constants.dart';
+import 'package:firebase_login/models/movie.dart';
 import 'package:firebase_login/screens/details_screen.dart';
 import 'package:flutter/material.dart';
 
 class MostWatched extends StatelessWidget {
   const MostWatched({
     super.key,
-    required this.snapshot,
+    required this.snapshot, required void Function(Movie movie) onBookmarkPressed,
   });
 
   final AsyncSnapshot snapshot;
@@ -33,7 +34,7 @@ class MostWatched extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => DetailsScreen(
-                    movie: snapshot.data[itemIndex],
+                    movie: snapshot.data[itemIndex], onBookmarkPressed: (Movie ) {  },
                   ),
                 ),
               );

@@ -20,6 +20,7 @@ class _HomepageState extends State<Homepage> {
   late Future<List<Movie>> mostwatched;
   late Future<List<Movie>> toprated;
   late Future<List<Movie>> upcoming;
+  final List<BookmarkItem> bookmarks = [];
 
   @override
   void initState() {
@@ -40,6 +41,12 @@ class _HomepageState extends State<Homepage> {
     } catch (e) {
       print("Sign out error: $e");
     }
+  }
+
+  void addBookmark(Movie movie) {
+    setState(() {
+      bookmarks.add(BookmarkItem(id: movie.id.toString(), movie: movie));
+    });
   }
 
   @override
@@ -87,31 +94,30 @@ class _HomepageState extends State<Homepage> {
                       color: Colors.black,
                     ),
                     onPressed: () {
-                      const Bookmark();
-                      // Handle bookmark action here
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Bookmark(
+                            bookmarks: bookmarks,
+                            onBookmarkPressed: addBookmark,
+                          ),
+                        ),
+                      );
                     },
                   ),
                 ],
               ),
             ),
             const SizedBox(height: 36),
-            // Category section
-
-            const SizedBox(height: 18),
             const Catagory(),
             const SizedBox(height: 36),
-
-            // Consolidated section from Most Watched to Upcoming with rounded top corners
             _buildSection(
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-
                   children: [
                     const SizedBox(height: 24),
-
-                    // Most Watched section
                     _buildSubSection(
                       header: const Text(
                         'Most Watched',
@@ -129,15 +135,16 @@ class _HomepageState extends State<Homepage> {
                               child: Text(snapshot.error.toString()),
                             );
                           } else if (snapshot.hasData) {
-                            return MostWatched(snapshot: snapshot);
+                            return MostWatched(
+                              snapshot: snapshot,
+                              onBookmarkPressed: addBookmark,
+                            );
                           } else {
                             return const Center(child: CircularProgressIndicator());
                           }
                         },
                       ),
                     ),
-
-                    // Top Rated Movies section
                     _buildSubSection(
                       header: const Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -162,15 +169,16 @@ class _HomepageState extends State<Homepage> {
                               child: Text(snapshot.error.toString()),
                             );
                           } else if (snapshot.hasData) {
-                            return TopRated(snapshot: snapshot);
+                            return TopRated(
+                              snapshot: snapshot,
+                              onBookmarkPressed: addBookmark,
+                            );
                           } else {
                             return const Center(child: CircularProgressIndicator());
                           }
                         },
                       ),
                     ),
-
-                    // Upcoming section
                     _buildSubSection(
                       header: const Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -195,7 +203,10 @@ class _HomepageState extends State<Homepage> {
                               child: Text(snapshot.error.toString()),
                             );
                           } else if (snapshot.hasData) {
-                            return Upcoming(snapshot: snapshot);
+                            return Upcoming(
+                              snapshot: snapshot,
+                              onBookmarkPressed: addBookmark,
+                            );
                           } else {
                             return const Center(child: CircularProgressIndicator());
                           }
@@ -209,12 +220,9 @@ class _HomepageState extends State<Homepage> {
           ],
         ),
       ),
-
-
     );
   }
 
-  // Help to round the  top corners
   Widget _buildSection(Widget child) {
     return ClipRRect(
       borderRadius: const BorderRadius.only(
@@ -228,7 +236,6 @@ class _HomepageState extends State<Homepage> {
     );
   }
 
-  // Help to remove padding
   Widget _buildSubSection({required Widget header, required Widget content}) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 24),

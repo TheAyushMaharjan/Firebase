@@ -8,21 +8,24 @@ class BookmarkItem {
 
   BookmarkItem({required this.id, required this.movie});
 }
+
 class Bookmark extends StatefulWidget {
-  const Bookmark({super.key});
+  const Bookmark({super.key, required this.bookmarks, required this.onBookmarkPressed});
+
+  final List<BookmarkItem> bookmarks;
+  final Function(Movie) onBookmarkPressed;
 
   @override
   State<Bookmark> createState() => _BookmarkState();
 }
 
 class _BookmarkState extends State<Bookmark> {
-  List<BookmarkItem> bookmarks = []; // List to hold bookmarked items
+  late List<BookmarkItem> bookmarks;
 
-  // Method to add bookmark from DetailsScreen
-  void addBookmark(Movie movie) {
-    setState(() {
-      bookmarks.add(BookmarkItem(id: movie.id.toString(), movie: movie));
-    });
+  @override
+  void initState() {
+    super.initState();
+    bookmarks = widget.bookmarks;
   }
 
   // Method to remove bookmark (if needed)
@@ -45,12 +48,21 @@ class _BookmarkState extends State<Bookmark> {
           return ListTile(
             title: Text(bookmark.movie.title),
             subtitle: Text('ID: ${bookmark.id}'),
+            trailing: IconButton(
+              icon: const Icon(Icons.delete),
+              onPressed: () {
+                removeBookmark(bookmark.id);
+              },
+            ),
             onTap: () {
-              // Navigate to details screen when bookmark is tapped (optional)
+              // Navigate to details screen when bookmark is tapped
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => DetailsScreen(movie: bookmark.movie),
+                  builder: (context) => DetailsScreen(
+                    movie: bookmark.movie,
+                    onBookmarkPressed: widget.onBookmarkPressed,
+                  ),
                 ),
               );
             },

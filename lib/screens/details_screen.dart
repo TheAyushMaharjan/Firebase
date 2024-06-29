@@ -3,9 +3,10 @@ import 'package:firebase_login/models/movie.dart';
 import 'package:flutter/material.dart';
 
 class DetailsScreen extends StatelessWidget {
-  const DetailsScreen({super.key, required this.movie});
+  const DetailsScreen({super.key, required this.movie, required this.onBookmarkPressed});
 
   final Movie movie;
+  final Function(Movie) onBookmarkPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +59,12 @@ class DetailsScreen extends StatelessWidget {
               IconButton(
                 icon: const Icon(Icons.bookmark_border),
                 onPressed: () {
-                  // Implement bookmark functionality here
+                  onBookmarkPressed(movie);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Movie saved to bookmarks'),
+                    ),
+                  );
                 },
               ),
             ],
@@ -79,12 +85,6 @@ class DetailsScreen extends StatelessWidget {
                           fontSize: 36,
                           color: Colors.black,
                         ),
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.bookmark_border),
-                        onPressed: () {
-                          // Implement bookmark functionality here
-                        },
                       ),
                     ],
                   ),

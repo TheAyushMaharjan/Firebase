@@ -1,3 +1,4 @@
+import 'package:firebase_login/models/movie.dart';
 import 'package:flutter/material.dart';
 import '../constants.dart';
 import '../screens/details_screen.dart';
@@ -5,7 +6,7 @@ import '../screens/details_screen.dart';
 class Upcoming extends StatelessWidget {
   const Upcoming({
     super.key,
-    required this.snapshot,
+    required this.snapshot, required void Function(Movie movie) onBookmarkPressed,
   });
 
   final AsyncSnapshot snapshot;
@@ -26,13 +27,16 @@ class Upcoming extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => DetailsScreen(
-                    movie: snapshot.data[index], // Use index instead of itemIndex
+                    movie: snapshot.data[index],
+                    onBookmarkPressed:
+                        (Movie) {}, // Use index instead of itemIndex
                   ),
                 ),
               );
             },
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),              child: ClipRRect(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: ClipRRect(
                 borderRadius: BorderRadius.circular(18),
                 child: SizedBox(
                   height: 300,
