@@ -17,7 +17,7 @@ class DetailsScreen extends StatelessWidget {
             leading: Container(
               height: 60,
               width: 60,
-              margin: const EdgeInsets.only(top: 24, left: 6),
+              margin: const EdgeInsets.only(top: 15, left: 6),
               decoration: const BoxDecoration(
                 shape: BoxShape.circle,
                 color: Colors.black54,
