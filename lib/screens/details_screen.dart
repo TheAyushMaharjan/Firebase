@@ -62,7 +62,7 @@ class DetailsScreen extends StatelessWidget {
                   onBookmarkPressed(movie);
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
-                      content: Text('Movie saved in bookmarks.'),
+                      content: Text('Movie saved to bookmarks.'),
                     ),
                   );
                 },
