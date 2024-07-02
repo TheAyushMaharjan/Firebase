@@ -57,7 +57,8 @@ class DetailsScreen extends StatelessWidget {
             ),
             actions: [
               IconButton(
-                icon: const Icon(Icons.bookmark_border),
+                icon: const Icon(Icons.bookmark_border,),
+
                 onPressed: () {
                   onBookmarkPressed(movie);
                   ScaffoldMessenger.of(context).showSnackBar(
