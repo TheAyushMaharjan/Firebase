@@ -151,7 +151,7 @@ class _HomepageState extends State<Homepage> {
                         children: [
                           SizedBox(height: 36),
                           Text(
-                            'Top Rated Movies',
+                            'Top Rated',
                             style: TextStyle(
                               fontFamily: 'Clash-medium',
                               fontSize: 24,
