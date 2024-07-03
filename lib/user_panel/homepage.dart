@@ -120,7 +120,7 @@ class _HomepageState extends State<Homepage> {
                     const SizedBox(height: 24),
                     _buildSubSection(
                       header: const Text(
-                        'Most Watched',
+                        'Most Watched Movies',
                         style: TextStyle(
                           fontFamily: 'Clash-medium',
                           fontSize: 24,
