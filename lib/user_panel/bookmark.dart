@@ -1,3 +1,4 @@
+//bookmark.dart
 import 'package:flutter/material.dart';
 import 'package:firebase_login/models/movie.dart';
 import 'package:firebase_login/screens/details_screen.dart';
@@ -41,7 +42,9 @@ class _BookmarkState extends State<Bookmark> {
       appBar: AppBar(
         title: const Text('Bookmarks'),
       ),
-      body: ListView.builder(
+      body: bookmarks.isEmpty
+          ? const Center(child: Text('No bookmarks added.'))
+          : ListView.builder(
         itemCount: bookmarks.length,
         itemBuilder: (context, index) {
           final bookmark = bookmarks[index];
@@ -59,10 +62,7 @@ class _BookmarkState extends State<Bookmark> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => DetailsScreen(
-                    movie: bookmark.movie,
-                    onBookmarkPressed: widget.onBookmarkPressed,
-                  ),
+                  builder: (context) => DetailsScreen(movie: bookmark.movie, onBookmarkPressed: (Movie ) {  },),
                 ),
               );
             },
