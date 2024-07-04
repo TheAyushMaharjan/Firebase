@@ -1,3 +1,4 @@
+//homepage.dart
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_login/admin_panel/login.dart';
 import 'package:firebase_login/user_panel/bookmark.dart';
@@ -45,7 +46,21 @@ class _HomepageState extends State<Homepage> {
 
   void addBookmark(Movie movie) {
     setState(() {
-      bookmarks.add(BookmarkItem(id: movie.id.toString(), movie: movie));
+      if (bookmarks.any((bookmark) => bookmark.movie.id == movie.id)) {
+        // If movie is already bookmarked, do nothing
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Movie is already bookmarked.'),
+          ),
+        );
+      } else {
+        bookmarks.add(BookmarkItem(id: movie.id.toString(), movie: movie));
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Movie added to bookmarks.'),
+          ),
+        );
+      }
     });
   }
 
